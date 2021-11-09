@@ -1,15 +1,22 @@
 
+const Hello = (props) => {
+  return (
+      <div>
+        <p>Hello {props.name} you are {props.age} years old</p>
+      </div>
+    )
+  }
+
 const App = () => {
-  const now = new Date()
-  const a = 10
-  const b = 20
+  const name = "Daniel"
+  const age = 29
 
   return (
     <div>
-        <p>Hello World, it is {now.toString()}</p>
-        <p>
-          {a} plus {b} = {a + b}
-        </p>
+        <h1>Greetings</h1>
+        <Hello name={name} age={age}/>
+        <Hello name="Joe" age={age + 3}/>
+        <Hello name="Bob" age={age*2}/>
     </div>
   );
 }
