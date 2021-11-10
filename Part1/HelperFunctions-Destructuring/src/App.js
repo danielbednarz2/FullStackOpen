@@ -1,10 +1,11 @@
 const Hello = ({ name, age }) => {
-  /* Assigning props object
+  // Destructure props object in argument ^^^ 
+  /* 
+  // Assigning props object
   const name = props.name
   const age = props.age
-  */
 
-  /* Destructuring props object inside component
+  // Destructuring props object inside component
   const { name, age } = props
   */
 
