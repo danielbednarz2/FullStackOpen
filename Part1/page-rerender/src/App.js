@@ -3,16 +3,20 @@ import { useState } from 'react'
 const App = () => {
   const [ counter, setCounter ] = useState(0)
 
-  setTimeout (
-    () => setCounter(counter + 1),
-    1000
-  )
-
-  console.log('rendering...', counter)
-
+  const handleClick = () => setCounter(counter + 1)
+  
   return (
     <div>
-      {counter}
+      <div>
+        {counter}
+      </div>
+      <button onClick={handleClick}>
+        plus
+      </button>
+      <br />
+      <button onClick={() => setCounter(0)}>
+        reset
+      </button>
     </div>
   );
 }
