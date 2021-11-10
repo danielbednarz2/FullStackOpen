@@ -20,15 +20,23 @@ const Statistics = ({ goodValue, neutralValue, badValue }) => {
   const averageStats = (allStats / 3) * .1
   const positiveStats = (goodValue / allStats) * 100 + ' %'
 
+  if (goodValue || neutralValue || badValue > 0) {
+    return (
+      <>
+        <h1>statistics</h1>
+        <Stats voteValue={goodValue} text='good'/>
+        <Stats voteValue={neutralValue} text='neutral'/>
+        <Stats voteValue={badValue} text='bad'/>
+        <Stats voteValue={allStats} text='all'/>
+        <Stats voteValue={averageStats} text='average'/>
+        <Stats voteValue={positiveStats} text='positive'/>
+      </>
+    )
+  }
   return (
     <>
-      <h1>statistics</h1>
-      <Stats voteValue={goodValue} text='good'/>
-      <Stats voteValue={neutralValue} text='neutral'/>
-      <Stats voteValue={badValue} text='bad'/>
-      <Stats voteValue={allStats} text='all'/>
-      <Stats voteValue={averageStats} text='average'/>
-      <Stats voteValue={positiveStats} text='positive'/>
+    <h1>statistics</h1>
+    <p>There is no feedback</p>
     </>
   )
 }
