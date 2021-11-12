@@ -8,14 +8,27 @@ const App = () => {
 
   const handleAddNumber = (e) => {
     e.preventDefault()
+    
     const newPerson = {
       name: newName,
       id: persons.length + 1
     }
-    setPersons(persons.concat(newPerson))
+
+    if (checkForDuplicate(persons)) {
+      alert(`${newName} already exists`)
+    } 
+    else {
+      setPersons(persons.concat(newPerson))
+    }
     setNewName('')
   }
-    const handleNameInput = (e) => setNewName(e.target.value)
+  
+  const handleNameInput = (e) => setNewName(e.target.value)
+
+  const checkForDuplicate = (persons) => {
+    const uniqueValues = [...new Set(persons.map(person => person.name))]
+    console.log(uniqueValues)
+  }
 
   return (
     <div>
