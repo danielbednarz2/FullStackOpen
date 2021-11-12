@@ -14,21 +14,25 @@ const App = () => {
       id: persons.length + 1
     }
 
-    if (checkForDuplicate(persons)) {
-      alert(`${newName} already exists`)
-    } 
-    else {
+    let hasVal = false;
+
+    for (let key in persons) { 
+      if (persons[key].name === newPerson.name) {
+         hasVal = true;
+         break;
+      }}
+      
+    if (!hasVal) 
+    {
       setPersons(persons.concat(newPerson))
+    } else {
+      alert(`${newName} is already added to phonebook`)
     }
-    setNewName('')
+    setNewName('') 
   }
   
   const handleNameInput = (e) => setNewName(e.target.value)
 
-  const checkForDuplicate = (persons) => {
-    const uniqueValues = [...new Set(persons.map(person => person.name))]
-    console.log(uniqueValues)
-  }
 
   return (
     <div>
