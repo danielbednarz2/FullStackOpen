@@ -1,11 +1,15 @@
 
-const Countries = ({ filteredCountries }) => {
+const Countries = ({ filteredCountries, setSearch }) => {
+
     return (
         <>
         {filteredCountries.map(res => 
-            <p key={res.name.common}>
-            {res.name.common}
-            </p>
+            <div key={res.name.common} >
+                <p>
+                {res.name.common}
+                </p>
+                <button onClick={() => setSearch(res.name.common)}>show</button>
+            </div>
             )
         } 
         </>

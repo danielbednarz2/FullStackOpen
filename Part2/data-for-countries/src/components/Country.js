@@ -7,8 +7,6 @@ const Country = ({ filteredCountries }) => {
         languageArray.push(filteredCountries[0].languages[key])
     }
 
-    console.log(filteredCountries[0].flags.svg)
-
     return (
         <>
         <h2>{filteredCountries[0].name.common}</h2>

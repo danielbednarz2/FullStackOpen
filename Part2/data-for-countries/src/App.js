@@ -23,10 +23,10 @@ const App = () => {
             <Search search={search} handleSearchValue={handleSearchValue}/>
             {
             filteredCountries.length > 10 ? 
-            <p>Too many matches, specify country</p> : 
+                <p>Too many matches, specify country</p> : 
             filteredCountries.length === 1 ?
-            <Country filteredCountries={filteredCountries} /> :
-            <Countries filteredCountries={filteredCountries} />
+                <Country filteredCountries={filteredCountries} /> :
+                <Countries filteredCountries={filteredCountries} setSearch={setSearch} />
             }
         </div>
     )
