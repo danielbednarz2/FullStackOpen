@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Search from './components/Search'
 import AddPerson from './components/AddPerson'
 import Phonebook from './components/Phonebook'
-import axios from 'axios'
+import personServices from './services/persons'
 
 const App = () => {
   const [ persons, setPersons ] = useState ([])
@@ -11,9 +11,9 @@ const App = () => {
   const [ searchValue, setSearchValue ] = useState('')
 
   useEffect(() => {
-    axios
-    .get('http://localhost:3001/persons')
-    .then(res => setPersons(res.data))
+    personServices
+    .getAll()
+    .then(book => setPersons(book))
   }, [])
 
   let filteredPersons = persons.filter(person => person.name.toLowerCase().includes(searchValue.toLowerCase()) || person.number.includes(searchValue))
@@ -23,13 +23,17 @@ const App = () => {
     
     const newPerson = {
       name: newName,
-      id: persons.length + 1,
       number: newNumber,
     }
 
-    let hasVal = false;
-    for (let key in persons) {persons[key].name.toLowerCase() === newPerson.name.toLocaleLowerCase() ? hasVal = true : hasVal = false}
-    !hasVal ? setPersons(persons.concat(newPerson)) : alert(`${newName} is already added to phonebook`)
+    personServices
+      .create(newPerson)
+      .then(person => {
+        let hasVal = false;
+        for (let key in persons) {persons[key].name.toLowerCase() === newPerson.name.toLocaleLowerCase() ? hasVal = true : hasVal = false}
+        !hasVal ? setPersons(persons.concat(person)) : alert(`${newName} is already added to phonebook`)
+      }
+         )
 
     setNewName('') 
     setNewNumber('')

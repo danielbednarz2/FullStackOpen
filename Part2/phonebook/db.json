@@ -1,24 +1,39 @@
 {
-    "persons": [
-    {   
-        "name": "Arto Hellas", 
-        "number": "425-428-9300", 
-        "id": 1
+  "persons": [
+    {
+      "name": "Arto Hellas",
+      "number": "425-428-9300",
+      "id": 1
     },
-    {   
-        "name": "Ada Lovelace", 
-        "number": "425-250-3015", 
-        "id": 2
+    {
+      "name": "Ada Lovelace",
+      "number": "425-250-3015",
+      "id": 2
     },
-    {   
-        "name": "Dan Abramov", 
-        "number": "425-428-8750", 
-        "id": 3
+    {
+      "name": "Dan Abramov",
+      "number": "425-428-8750",
+      "id": 3
     },
-    {   
-        "name": "Mary Poppendieck", 
-        "number": "206-956-1674", 
-        "id": 4
+    {
+      "name": "Mary Poppendieck",
+      "number": "206-956-1674",
+      "id": 4
+    },
+    {
+      "name": "Daniel Bednarz",
+      "id": 5,
+      "number": "42569862"
+    },
+    {
+      "name": "Dan",
+      "number": "23948y2395",
+      "id": 6
+    },
+    {
+      "name": "Daniel",
+      "number": "Test",
+      "id": 7
     }
-    ]
+  ]
 }
