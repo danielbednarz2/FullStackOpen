@@ -20,20 +20,35 @@ const App = () => {
 
   const handleAddNumber = (e) => {
     e.preventDefault()
+
+    const handlePersonChange = () => {
+      const updateNumber = persons.find(person => person.name.toLowerCase() === newPerson.name.toLowerCase())
+      
+      if (window.confirm('Are you sure?')) {
+        personServices
+          .update(newPerson, updateNumber.id)
+        personServices
+          .getAll()
+          .then(book => setPersons(book))
+      } else {
+          return
+      }
+    }
+
+    const handleAddPerson = () => {
+      personServices
+        .create(newPerson)
+        .then(person => setPersons(persons.concat(person)))
+    }
     
     const newPerson = {
       name: newName,
       number: newNumber,
     }
 
-    personServices
-      .create(newPerson)
-      .then(person => {
-        let hasVal = false;
-        for (let key in persons) {persons[key].name.toLowerCase() === newPerson.name.toLocaleLowerCase() ? hasVal = true : hasVal = false}
-        !hasVal ? setPersons(persons.concat(person)) : alert(`${newName} is already added to phonebook`)
-      }
-         )
+    persons.some(person => person.name.toLowerCase() === newPerson.name.toLowerCase())
+    ? handlePersonChange()
+    : handleAddPerson()
 
     setNewName('') 
     setNewNumber('')
@@ -42,14 +57,13 @@ const App = () => {
   const deleteEntry = (id) => {
     if (window.confirm('Are you sure?')) {
       personServices
-      .deletePerson(id)
-      .then(
-        personServices
-          .getAll()
-          .then(book => setPersons(book))
-      )
+        .deletePerson(id)
+      personServices
+        .getAll()
+        .then(book => setPersons(book))
+    } else {
+        return
     }
-    return
   }
   
   const handleNameInput = (e) => setNewName(e.target.value)
