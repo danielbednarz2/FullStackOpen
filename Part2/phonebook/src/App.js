@@ -38,6 +38,19 @@ const App = () => {
     setNewName('') 
     setNewNumber('')
   }
+
+  const deleteEntry = (id) => {
+    if (window.confirm('Are you sure?')) {
+      personServices
+      .deletePerson(id)
+      .then(
+        personServices
+          .getAll()
+          .then(book => setPersons(book))
+      )
+    }
+    return
+  }
   
   const handleNameInput = (e) => setNewName(e.target.value)
   const handleNumberInput = (e) => setNewNumber(e.target.value)
@@ -50,7 +63,9 @@ const App = () => {
       <h2>Add New Number</h2>
       <AddPerson newName={newName} newNumber={newNumber} handleNameInput={handleNameInput} handleNumberInput={handleNumberInput} handleAddNumber={handleAddNumber} />
       <h2>Numbers</h2>
-      <Phonebook filteredPersons={filteredPersons} />
+      {filteredPersons.map(person => 
+      <Phonebook key={person.id} name={person.name} number={person.number} deleteEntry={() => deleteEntry(person.id)} />
+      )}
     </div>
   );
 }
