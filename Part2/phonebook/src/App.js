@@ -3,18 +3,22 @@ import Search from './components/Search'
 import AddPerson from './components/AddPerson'
 import Phonebook from './components/Phonebook'
 import personServices from './services/persons'
+import Notification from './components/Error'
 
 const App = () => {
   const [ persons, setPersons ] = useState ([])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ searchValue, setSearchValue ] = useState('')
+  const [ errorMessage, setErrorMessage] = useState('')
 
-  useEffect(() => {
+  const getPhoneBook = () => {
     personServices
     .getAll()
     .then(book => setPersons(book))
-  }, [])
+  }
+
+  useEffect(getPhoneBook, [])
 
   let filteredPersons = persons.filter(person => person.name.toLowerCase().includes(searchValue.toLowerCase()) || person.number.includes(searchValue))
 
@@ -27,9 +31,16 @@ const App = () => {
       if (window.confirm('Are you sure?')) {
         personServices
           .update(newPerson, updateNumber.id)
-        personServices
-          .getAll()
-          .then(book => setPersons(book))
+          .then(res => {
+            getPhoneBook()
+            setErrorMessage(`${newPerson.name}'s number was updated`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 2000)
+          })
+          .catch(error => {
+            setErrorMessage(error)
+          })
       } else {
           return
       }
@@ -38,7 +49,13 @@ const App = () => {
     const handleAddPerson = () => {
       personServices
         .create(newPerson)
-        .then(person => setPersons(persons.concat(person)))
+        .then(person => {
+          setPersons(persons.concat(person))
+          setErrorMessage(`${newPerson.name} was added to the phonebook`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 2000)
+        })
     }
     
     const newPerson = {
@@ -73,6 +90,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
       <Search searchValue={searchValue} handleSearchValue={handleSearchValue} />
       <h2>Add New Number</h2>
       <AddPerson newName={newName} newNumber={newNumber} handleNameInput={handleNameInput} handleNumberInput={handleNumberInput} handleAddNumber={handleAddNumber} />
