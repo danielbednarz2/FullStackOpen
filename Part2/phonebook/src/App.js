@@ -10,7 +10,7 @@ const App = () => {
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ searchValue, setSearchValue ] = useState('')
-  const [ errorMessage, setErrorMessage] = useState('')
+  const [ errorMessage, setErrorMessage] = useState(null)
 
   const getPhoneBook = () => {
     personServices
@@ -39,7 +39,8 @@ const App = () => {
             }, 2000)
           })
           .catch(error => {
-            setErrorMessage(error)
+            setErrorMessage(`Information of ${newPerson.name} has been removed from the server`)
+            getPhoneBook()
           })
       } else {
           return
